@@ -59,6 +59,40 @@
     flex-shrink:0;
   }
 
+  .foto-topo{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid rgba(255,255,255,0.8);
+    background:#fff;
+    flex-shrink:0;
+  }
+
+  .header-fotos{
+    display:flex;
+    align-items:center;
+    gap:-14px;
+    flex-shrink:0;
+    position:relative;
+    width:74px;
+    height:52px;
+  }
+
+  .header-fotos .logo-topo{
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:2;
+  }
+
+  .header-fotos .foto-topo{
+    position:absolute;
+    left:22px;
+    top:0;
+    z-index:1;
+  }
+
   .header-top-texto{
     color:#fff;
   }
@@ -378,7 +412,10 @@
 <div class="container">
 
   <div class="header-top">
-    <img src="logo.jpeg" alt="Sueli Pedroso" class="logo-topo">
+    <div class="header-fotos">
+      <img src="logo.jpeg" alt="Sueli Pedroso" class="logo-topo">
+      <img src="foto.jpeg" alt="Sueli Pedroso" class="foto-topo">
+    </div>
     <div class="header-top-texto">
       <h1>Rastreio de Conflitos Amorosos</h1>
       <span>Sueli Pedroso &bull; Terapeuta Sistêmica</span>
