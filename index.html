@@ -50,8 +50,8 @@
   }
 
   .logo-topo{
-    width:52px;
-    height:52px;
+    width:44px;
+    height:44px;
     border-radius:50%;
     object-fit:cover;
     border:2px solid rgba(255,255,255,0.8);
@@ -60,8 +60,8 @@
   }
 
   .foto-topo{
-    width:52px;
-    height:52px;
+    width:44px;
+    height:44px;
     border-radius:50%;
     object-fit:cover;
     border:2px solid rgba(255,255,255,0.8);
@@ -72,25 +72,8 @@
   .header-fotos{
     display:flex;
     align-items:center;
-    gap:-14px;
+    gap:8px;
     flex-shrink:0;
-    position:relative;
-    width:74px;
-    height:52px;
-  }
-
-  .header-fotos .logo-topo{
-    position:absolute;
-    left:0;
-    top:0;
-    z-index:2;
-  }
-
-  .header-fotos .foto-topo{
-    position:absolute;
-    left:22px;
-    top:0;
-    z-index:1;
   }
 
   .header-top-texto{
@@ -828,11 +811,11 @@ function carregarImagemComoDataURL(src){
     img.onload = function(){
       try{
         const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
+        canvas.width = img.naturalWidth || img.width;
+        canvas.height = img.naturalHeight || img.height;
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        resolve(canvas.toDataURL('image/jpeg', 0.92));
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/png'));
       } catch(e){
         resolve(null);
       }
@@ -849,10 +832,10 @@ function adicionarImagemCircular(doc, dataUrl, x, y, diametro){
     const raio = diametro/2;
     doc.roundedRect(x, y, diametro, diametro, raio, raio, null);
     doc.clip();
-    doc.addImage(dataUrl, 'JPEG', x, y, diametro, diametro);
+    doc.addImage(dataUrl, 'PNG', x, y, diametro, diametro);
     doc.restoreGraphicsState();
   } catch(e){
-    try{ doc.addImage(dataUrl, 'JPEG', x, y, diametro, diametro); } catch(e2){}
+    try{ doc.addImage(dataUrl, 'PNG', x, y, diametro, diametro); } catch(e2){}
   }
 }
 
