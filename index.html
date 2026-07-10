@@ -813,14 +813,19 @@ function carregarImagemComoDataURL(src){
         const canvas = document.createElement('canvas');
         canvas.width = img.naturalWidth || img.width;
         canvas.height = img.naturalHeight || img.height;
+        console.log('Imagem carregada:', src, canvas.width, 'x', canvas.height);
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         resolve(canvas.toDataURL('image/png'));
       } catch(e){
+        console.error('Erro ao converter imagem para PDF:', src, e);
         resolve(null);
       }
     };
-    img.onerror = function(){ resolve(null); };
+    img.onerror = function(){
+      console.error('Falha ao carregar imagem:', src);
+      resolve(null);
+    };
     img.src = src;
   });
 }
@@ -864,8 +869,8 @@ async function gerarPDF(){
     const pageHeight = doc.internal.pageSize.getHeight();
 
     const [fotoDataUrl, logoDataUrl] = await Promise.all([
-      carregarImagemComoDataURL('foto.jpeg'),
-      carregarImagemComoDataURL('logo.jpeg')
+      carregarImagemComoDataURL('foto.jpeg?v=' + Date.now()),
+      carregarImagemComoDataURL('logo.jpeg?v=' + Date.now())
     ]);
 
     const dataAtual = new Date().toLocaleDateString('pt-BR');
